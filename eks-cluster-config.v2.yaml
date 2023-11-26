@@ -1,0 +1,24 @@
+#-------------------------------------------------------------------------
+# Manifest File to create AWS EKS Cluster with ManagedNodes
+#
+# eksctl create cluster -f eks-cluster-config.v2.yaml --profile user1-profile
+# eksctl delete cluster -f eks-cluster-config.v2.yaml --profile user1-profile
+# eksctl update cluster -f eks-cluster-config.v2.yaml --profile user1-profile
+#
+# Copyleft (c) by David Izhak 2023
+#-------------------------------------------------------------------------
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name   : k8s-test1
+  version: "1.28"
+  region : eu-west-1
+
+managedNodeGroups:
+  - name             : worker-group-1
+    instanceType     : t2.micro
+    desiredCapacity  : 3
+    labels           : { role: worker1 }   
+    volumeSize       : 50
+    privateNetworking: true

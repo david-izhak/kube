@@ -1,0 +1,28 @@
+#-------------------------------------------------------------
+# Manifest File to create Deployment with Labels and ReplicaSet
+#
+# Copyleft (c) by David Izhak 2023
+#-------------------------------------------------------------
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment-with-replicas
+  labels:
+    app  : my-k8s-app
+    env  : prod
+    owner: David_Izhak
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: k8s_app
+  template:
+    metadata:
+      labels:
+        project: k8s_app
+    spec:
+      containers:
+        - name : k8s_php-app
+          image: davidizhak/k8sphp:latest
+          ports:
+            - containerPort: 80
